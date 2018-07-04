@@ -1,0 +1,74 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+<f:layout name="BackendModule" />
+
+<f:section name="content">
+    <div class="neos-row-fluid">
+        <table class="neos-table">
+            <thead>
+            <tr>
+                <th>Source</th>
+                <th>Target</th>
+                <th>Status code</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <f:if condition="{redirects -> f:count()}">
+                <f:then>
+                    <f:for each="{redirects}" key="index" as="redirect">
+                        <tr>
+                            <td>{redirect.sourceUriPath}</td>
+                            <td>{redirect.targetUriPath}</td>
+                            <td>{redirect.statusCode}</td>
+
+                            <td class="neos-action">
+                                <div class="neos-pull-right">
+                                    <button class="neos-button neos-button-danger" title="Delete redirect" data-toggle="modal" href="#redirect-{index}" data-neos-toggle="tooltip">
+                                        <i class="fas fa-trash-alt icon-white"></i>
+                                    </button>
+                                    <div class="neos-hide" id="redirect-{index}">
+                                        <div class="neos-modal-centered">
+                                            <div class="neos-modal-content">
+                                                <div class="neos-modal-header">
+                                                    <button type="button" class="neos-close neos-button" data-dismiss="modal"></button>
+                                                    <div class="neos-header">
+                                                        Delete redirect
+                                                    </div>
+                                                    <div>
+                                                        <div class="neos-subheader">
+                                                            <p>
+                                                                Delete redirect from <b>{redirect.sourceUriPath}</b> to <b>{redirect.targetUriPath}</b><br/>
+                                                                <neos:backend.translate id="operationCannotBeUndone" package="Neos.Neos"/>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="neos-modal-footer">
+                                                    <a href="#" class="neos-button" data-dismiss="modal">{neos:backend.translate(id: 'cancel', value: 'Cancel')}</a>
+                                                    <f:form action="delete" arguments="{source: redirect.sourceUriPath}" class="neos-inline">
+                                                        <button type="submit" class="neos-button neos-button-danger" title="Delete">
+                                                            Delete
+                                                        </button>
+                                                    </f:form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="neos-modal-backdrop neos-in"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </f:for>
+                </f:then>
+                <f:else>
+                    <tr>
+                        <td colspan="3" style="text-align: center"><i>No redirects available</i></td>
+                    </tr>
+                </f:else>
+            </f:if>
+
+        </table>
+    </div>
+    <div class="neos-footer">
+        <f:link.action action="new" class="neos-button neos-button-primary" title="Create new redirect">Create new redirect</f:link.action>
+    </div>
+</f:section>

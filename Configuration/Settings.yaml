@@ -1,0 +1,10 @@
+Neos:
+  Neos:
+    modules:
+      management:
+        submodules:
+          redirector:
+            label: 'Redirector'
+            icon: 'icon-repeat'
+            controller: 'Yeebase\Redirector\Controller\Module\RedirectorController'
+            privilegeTarget: 'Yeebase.Redirector:GeneralAccess'

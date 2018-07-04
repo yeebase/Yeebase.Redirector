@@ -1,0 +1,13 @@
+
+privilegeTargets:
+
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+    'Yeebase.Redirector:GeneralAccess':
+      matcher: 'method(Yeebase\Redirector\Controller\Module\RedirectorController->.*Action())'
+
+roles:
+  'Neos.Neos:Administrator':
+    privileges:
+      -
+        privilegeTarget: 'Yeebase.Redirector:GeneralAccess'
+        permission: GRANT

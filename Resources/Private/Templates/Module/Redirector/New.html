@@ -1,0 +1,41 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+<f:layout name="BackendSubModule" />
+
+<f:section name="subtitle">
+    <h2>New redirect</h2>
+</f:section>
+
+<f:section name="content">
+    <f:form action="create">
+        <div class="neos-row-fluid">
+
+            <div class="neos-control-group{f:validation.ifHasErrors(for: 'source', then: ' neos-error')}">
+                <label class="neos-control-label" for="source">Source</label>
+                <div class="neos-controls">
+                    <f:form.textfield placeholder="old/path" name="source" id="source" class="neos-span12" autofocus="true" required="true" />
+                    <f:render partial="Module/Shared/FieldValidationResults" arguments="{fieldname: 'source'}"/>
+                </div>
+            </div>
+
+            <div class="neos-control-group{f:validation.ifHasErrors(for: 'target', then: ' neos-error')}">
+                <label class="neos-control-label" for="target">Target</label>
+                <div class="neos-controls">
+                    <f:form.textfield name="target" placeholder="new/path" id="target" class="neos-span12" required="true" />
+                    <f:render partial="Module/Shared/FieldValidationResults" arguments="{fieldname: 'target'}"/>
+                </div>
+            </div>
+
+            <div class="neos-control-group{f:validation.ifHasErrors(for: 'statusCode', then: ' neos-error')}">
+                <label class="neos-control-label" for="statusCode">Status code</label>
+                <div class="neos-controls">
+                    <f:form.select name="statusCode" id="statusCode" options="{statusCodes}" />
+                    <f:render partial="Module/Shared/FieldValidationResults" arguments="{fieldname: 'statusCode'}"/>
+                </div>
+            </div>
+        </div>
+        <div class="neos-footer">
+            <f:link.action action="index" class="neos-button">{neos:backend.translate(id: 'cancel', value: 'Cancel', source: 'Modules', package: 'Neos.Neos')}</f:link.action>
+            <f:form.submit value="Create redirect" class="neos-button neos-button-primary" />
+        </div>
+    </f:form>
+</f:section>

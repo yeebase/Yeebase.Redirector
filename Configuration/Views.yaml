@@ -1,0 +1,5 @@
+-
+  requestFilter: 'isPackage("Yeebase.Redirector")'
+  options:
+    partialRootPathPattern: resource://Neos.Neos/Private/Partials
+    layoutRootPathPattern: resource://Neos.Neos/Private/Layouts
