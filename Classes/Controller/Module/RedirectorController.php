@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Yeebase\Redirector\Controller\Module;
 
 /**
@@ -20,25 +23,20 @@ class RedirectorController extends AbstractModuleController
 {
     /**
      * @Flow\Inject
+     *
      * @var RedirectStorageInterface
      */
     protected $redirectStorage;
 
-    /**
-     *
-     */
-    public function indexAction()
+    public function indexAction(): void
     {
         $redirects = $this->redirectStorage->getAll();
         $this->view->assign('redirects', iterator_to_array($redirects));
     }
 
-    /**
-     *
-     */
-    public function newAction()
+    public function newAction(): void
     {
-        $this->view->assign('statusCodes', array_reduce([301, 307, 410], function ($mem, $statusCode) {
+        $this->view->assign('statusCodes', array_reduce([301, 307, 410], static function ($mem, $statusCode) {
             $mem[$statusCode] = $statusCode . ' (' . Response::getStatusMessageByCode($statusCode) . ')';
             return $mem;
         }, []));
@@ -52,7 +50,7 @@ class RedirectorController extends AbstractModuleController
      * @param string $target
      * @param int $statusCode
      */
-    public function createAction(string $source, string $target, int $statusCode)
+    public function createAction(string $source, string $target, int $statusCode): void
     {
         $this->redirectStorage->addRedirect($source, $target, $statusCode);
         $this->addFlashMessage('Redirect created');
@@ -62,7 +60,7 @@ class RedirectorController extends AbstractModuleController
     /**
      * @param string $source
      */
-    public function deleteAction(string $source)
+    public function deleteAction(string $source): void
     {
         $this->redirectStorage->removeOneBySourceUriPathAndHost($source);
         $this->addFlashMessage('Redirect deleted');

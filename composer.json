@@ -2,9 +2,16 @@
     "description": "Redirect UI",
     "type": "neos-yeebase",
     "name": "yeebase/redirector",
+    "config": {
+        "bin-dir": "bin"
+    },
     "require": {
         "neos/redirecthandler": "~2.0",
-        "neos/neos": "~3.0 || ~4.0"
+        "neos/neos": "~3.0 || ~4.0",
+        "neos/redirecthandler-databasestorage": "~2.0"
+    },
+    "require-dev": {
+        "t3n/coding-standard": "dev-master"
     },
     "autoload": {
         "psr-4": {
